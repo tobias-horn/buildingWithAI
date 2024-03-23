@@ -1,21 +1,31 @@
-import random
 import math
+import random             	# just for generating random mountains                                 	 
 
-def accept_prob(S_old, S_new, T):
-    # this is the acceptance "probability" in the greedy hill-climbing method
-    # where new solutions are accepted if and only if they are better
-    # than the old one.
-    # change it to be the acceptance probability in simulated annealing
-    if S_new > S_old:
-        return 1.0
-    else:
-        return math.exp(-(S_old - S_new) / T)
+# generate random mountains                                                                               	 
+
+w = [.05, random.random()/3, random.random()/3]
+h = [1.+math.sin(1+x/.6)*w[0]+math.sin(-.3+x/9.)*w[1]+math.sin(-.2+x/30.)*w[2] for x in range(100)]
+
+def climb(x, h):
+    # keep climbing until we've found a summit
+    summit = False
+
+    # edit here
+    while not summit:
+        summit = True
+        for x_new in range(max(0, x-5), min(99, x+5)):
+            if h[x_new] > h[x]:
+                x = x_new
+                summit = False
+    return x
 
 
-# the above function will be used as follows. this is shown just for
-# your information; you don't have to change anything here
-def accept(S_old, S_new, T):
-    if random.random() < accept_prob(S_old, S_new, T):
-        print(True)
-    else:
-        print(False)
+
+def main(h):
+    # start at a random place                                                                                  	 
+    x0 = random.randint(1, 98)
+    x = climb(x0, h)
+
+    return x0, x
+
+main(h)
