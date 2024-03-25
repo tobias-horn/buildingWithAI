@@ -61,4 +61,3 @@ def main(X_train, X_test, y_train, y_test):
 main(X_train, X_test, y_train, y_test)
 
 
-main(X_train, X_test, y_train, y_test)
